@@ -14,7 +14,7 @@ datasource db {
 }
 
 model User {
-  id             Int     @id @default(autoincrement()) @map("id")
+  id             Int     @id @default(autoincrement()) @map("_id")
   permission     Int     @default(0)
   email          String  @unique
   name           String? @default("")
