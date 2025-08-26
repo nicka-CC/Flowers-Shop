@@ -10,20 +10,38 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = "postgres://neondb_owner:npg_4p5RYihEZesm@ep-raspy-silence-a10u9qpl-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require"
+  //url      = "postgres://neondb_owner:npg_4p5RYihEZesm@ep-raspy-silence-a10u9qpl-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require"
+  url      = "postgresql://postgres:nikita12345@localhost:5432/flowersShop?schema=public"
+}
+
+model Address {
+  id           Int    @id @default(autoincrement()) @map("_id")
+  address      String
+  date_created String
+  date_updated String
+  User         User?  @relation(fields: [userId], references: [id])
+  userId       Int?
+}
+
+model Promocodes {
+  id           Int    @id @default(autoincrement()) @map("_id")
+  address      String
+  date_expired String
+  date_created String
+  date_updated String
 }
 
 model User {
-  id             Int     @id @default(autoincrement()) @map("_id")
-  permission     Int     @default(0)
-  email          String  @unique
-  name           String? @default("")
-  surname        String? @default("")
-  phone          String  @unique
+  id             Int       @id @default(autoincrement()) @map("_id")
+  permission     Int       @default(0)
+  email          String    @unique
+  name           String?   @default("")
+  surname        String?   @default("")
+  phone          String    @unique
   cart           Cart[]
   history_orders Order[]
   password       String
-  code_correctly String
+  address        Address[]
   face           String?
   date_created   String
   date_updated   String
@@ -41,11 +59,23 @@ model Cart {
   userId        Int?
 }
 
+model Shops {
+  id           Int    @id @default(autoincrement()) @map("_id")
+  locate       String
+  name         String
+  abount       String
+  stats        Int
+  comments     String
+  date_created String
+  date_updated String
+}
+
 model Order {
   id            Int       @id @default(autoincrement()) @map("_id")
   date          String
   status        String
   date_delivery String
+  address       String
   total_service String
   count_product Int
   product       Product[]
@@ -55,166 +85,54 @@ model Order {
   userId        Int?
 }
 
+model Flowers {
+  id            Int              @id @default(autoincrement()) @map("_id")
+  name          String
+  date_created  String
+  date_updated  String
+  flowerConnect FlowersProduct[]
+}
+
+model FlowersProduct {
+  id           Int      @id @default(autoincrement()) @map("_id")
+  name         String
+  date_created String
+  date_updated String
+  Flowers      Flowers? @relation(fields: [flowersId], references: [id])
+  flowersId    Int?
+  Product      Product? @relation(fields: [productId], references: [id])
+  productId    Int?
+}
+
+model ProductSize {
+  id           Int    @id @default(autoincrement()) @map("_id")
+  name         String
+  size         Int
+  date_created String
+  date_updated String
+
+  Product Product[]
+}
+
 model Product {
-  id           Int    @id @default(autoincrement()) @map("_id")
-  image        String
-  name         String
-  volume       String
-  count        Int
-  quantity     Int
-  total_count  Int
-  date_created String
-  date_updated String
-  Cart         Cart?  @relation(fields: [cartId], references: [id])
-  cartId       Int?
-  Order        Order? @relation(fields: [orderId], references: [id])
-  orderId      Int?
-}
-
-model OptionForApplication {
-  id                 Int    @id @default(autoincrement()) @map("_id")
-  name               String
-  phone              String
-  address            String
-  option             String
-  status             String
-  description_status String
-  date_created       String
-  date_updated       String
-}
-
-model EventAndOffers {
-  id           Int    @id @default(autoincrement()) @map("_id")
-  image        String
-  condition    String
-  date_created String
-  date_updated String
-}
-
-model CallBackIfApplication {
-  id                 Int    @id @default(autoincrement()) @map("_id")
-  fullName           String
-  phone              String
-  sttus              String
-  description_status String
-  date_created       String
-  date_updated       String
-}
-
-model reliableTeam {
-  id           Int    @id @default(autoincrement()) @map("_id")
-  image        String
-  fullName     String
-  position     String
-  date_created String
-  date_updated String
-}
-
-model OptionForService {
-  id                 Int    @id @default(autoincrement()) @map("_id")
-  name               String
-  phone              String
-  address            String
-  option             String
-  status             String
-  description_status String
-  date_created       String
-  date_updated       String
-}
-
-model OptionForDelivery {
-  id                 Int    @id @default(autoincrement()) @map("_id")
-  volume             String
-  from               String
-  where              String
-  phone              String
-  status             String
-  description_status String
-  date_created       String
-  date_updated       String
-}
-
-model history_company {
-  id           Int    @id @default(autoincrement()) @map("_id")
-  year         String
-  image        String
-  description  String
-  date_created String
-  date_updated String
-}
-
-model ApplicationOnKeeping {
-  id                 Int    @id @default(autoincrement()) @map("_id")
-  volume             String
-  period             String
-  phone              String
-  status             String
-  description_status String
-  date_created       String
-  date_updated       String
-}
-
-model gas_distribution_status {
-  id           Int            @id @default(autoincrement()) @map("_id")
-  name         String
-  address      String
-  map_point    String?
-  map_point2   String?
-  map_point3   String?
-  map_point4   String?
-  number       String
-  requesists   requesists[]
-  photogallary photogallary[]
-  date_created String
-  date_updated String
-}
-
-model requesists {
-  id                        Int                      @id @default(autoincrement()) @map("_id")
-  fullName                  String
-  location                  String
-  OGRN                      String
-  INN                       String
-  KPP                       String
-  OKTMO                     String
-  date_created              String
-  date_updated              String
-  gas_distribution_status   gas_distribution_status? @relation(fields: [gas_distribution_statusId], references: [id])
-  gas_distribution_statusId Int?
-}
-
-model photogallary {
-  id                        Int                      @id @default(autoincrement()) @map("_id")
-  image                     String
-  date_created              String
-  date_updated              String
-  gas_distribution_status   gas_distribution_status? @relation(fields: [gas_distribution_statusId], references: [id])
-  gas_distribution_statusId Int?
-}
-
-model news {
-  id           Int    @id @default(autoincrement()) @map("_id")
-  year         String
-  name         String
-  image        String
-  number       Int
-  description  String
-  date_created String
-  date_updated String
-}
-
-model application_on_calculate {
-  id                 Int    @id @default(autoincrement()) @map("_id")
-  date               String
-  variant            String
-  total              Int
-  name               String
-  phone              String
-  address            String
-  status             String
-  description_status String
-  date_created       String
-  date_updated       String
+  id            Int              @id @default(autoincrement()) @map("_id")
+  image         String
+  name          String
+  color         String
+  size          ProductSize      @relation(fields: [productSizeId], references: [id])
+  volume        String
+  amount        Int
+  flowers       FlowersProduct[]
+  count         Int
+  quantity      Int
+  total_count   Int
+  date_created  String
+  date_updated  String
+  Cart          Cart?            @relation(fields: [cartId], references: [id])
+  cartId        Int?
+  Order         Order?           @relation(fields: [orderId], references: [id])
+  orderId       Int?
+  productSizeId Int
 }
 
 model comments {
@@ -223,157 +141,6 @@ model comments {
   description  String
   image        String
   about        String
-  date_created String
-  date_updated String
-}
-
-model delivery_in_home {
-  id                Int    @id @default(autoincrement()) @map("_id")
-  name              String
-  phone             String
-  status            String
-  description_satus String
-  date_created      String
-  date_updated      String
-}
-
-model agzs {
-  id             Int                 @id @default(autoincrement()) @map("_id")
-  status         String
-  name           String
-  street         String
-  price          Int
-  price_in_offer Int
-  position1      String?
-  position2      String?
-  position3      String?
-  position4      String?
-  galarry        agzs_photogallary[]
-  date_created   String
-  date_updated   String
-}
-
-model agzs_photogallary {
-  id           Int    @id @default(autoincrement()) @map("_id")
-  image        String
-  date_created String
-  date_updated String
-  agzs         agzs?  @relation(fields: [agzsId], references: [id])
-  agzsId       Int?
-}
-
-model for_keeping {
-  id             Int                        @id @default(autoincrement()) @map("_id")
-  status         String
-  name           String
-  street         String
-  price          Int
-  price_in_offer Int
-  position1      String?
-  position2      String?
-  position3      String?
-  position4      String?
-  galarry        for_keeping_photogallary[]
-  date_created   String
-  date_updated   String
-}
-
-model for_keeping_photogallary {
-  id            Int          @id @default(autoincrement()) @map("_id")
-  image         String
-  date_created  String
-  date_updated  String
-  for_keeping   for_keeping? @relation(fields: [for_keepingId], references: [id])
-  for_keepingId Int?
-}
-
-model Service {
-  id           Int    @id @default(autoincrement()) @map("_id")
-  icon         String
-  service      String
-  price        Int
-  date_created String
-  date_updated String
-}
-
-model ways_replace_ballons {
-  id           Int    @id @default(autoincrement()) @map("_id")
-  name         String
-  ways         String
-  description  String
-  date_created String
-  date_updated String
-}
-
-model Comment {
-  id               Int             @id @default(autoincrement()) @map("_id")
-  name             String?
-  text             String?
-  raiting          Int?
-  date_created     String
-  date_updated     String
-  technical_gass   technical_gass? @relation(fields: [technical_gassId], references: [id])
-  technical_gassId Int?
-}
-
-model technical_gass {
-  id           Int       @id @default(autoincrement()) @map("_id")
-  image        String
-  name         String
-  volume       String
-  description  String
-  comment      Comment[]
-  date_created String
-  date_updated String
-}
-
-model ballons {
-  id            Int    @id @default(autoincrement()) @map("_id")
-  name          String
-  image         String
-  volume        String
-  price_filling String
-  price_buy     String
-  date_created  String
-  date_updated  String
-}
-
-model photogallary_main {
-  id           Int    @id @default(autoincrement()) @map("_id")
-  image        String
-  module       String
-  date_created String
-  date_updated String
-}
-
-model volume_gass_gallary {
-  id           Int    @id @default(autoincrement()) @map("_id")
-  voilume      String
-  base         String
-  phone        String
-  name         String
-  about_status String
-  date_created String
-  date_updated String
-}
-
-model for_key {
-  id           Int    @id @default(autoincrement()) @map("_id")
-  image        String
-  gasGolder    String
-  liter        Int
-  price        Int
-  date_created String
-  date_updated String
-}
-
-model applications {
-  id           Int    @id @default(autoincrement()) @map("_id")
-  name         String
-  phone        String
-  status       String
-  about_status String
-  about_where  String
   date_created String
   date_updated String
 }
