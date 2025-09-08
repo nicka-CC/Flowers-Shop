@@ -3,21 +3,14 @@ import { IsNotEmpty, IsNumberString, IsOptional } from "class-validator";
 
 
 
-export class ForKeyDto{
+export class PromocodesDto{
   @ApiProperty({
     type: 'string',
-    format: 'binary',
-    description: 'image balloon'
+    description: 'promocode'
   })
   @IsNotEmpty()
-  image: string;
-  @ApiProperty({example:'golder', description:'gas golder'})
+  promocode: string;
+  @ApiProperty({example:'2025-15-12', description:'date expired'})
   @IsNotEmpty()
-  gasGolder: string
-  @ApiProperty({example:66, description:'liter'})
-  @IsNotEmpty()
-  liter: number
-  @ApiProperty({example:1, description:'price'})
-  @IsNotEmpty()
-  price: number
+  date_expired: string
 }

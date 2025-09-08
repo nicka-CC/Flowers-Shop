@@ -42,7 +42,6 @@ export class AuthService {
         surname: dto.surname,
         phone: dto.phone,
         permission: dto.permission,
-        code_correctly: "",
         face: null,
         date_created: new Date().toISOString(),
         date_updated: new Date().toISOString(),

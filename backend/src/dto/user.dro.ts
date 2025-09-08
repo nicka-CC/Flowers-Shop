@@ -1,5 +1,5 @@
 // dto/update-user.dto.ts
-import { IsOptional, IsString, IsPhoneNumber, IsNotEmpty } from "class-validator";
+import { IsOptional, IsString, IsPhoneNumber, IsNotEmpty, IsEmail } from "class-validator";
 import { ApiProperty } from "@nestjs/swagger";
 
 export class UpdateUserDto {
@@ -8,8 +8,9 @@ export class UpdateUserDto {
     format: 'binary',
     description: 'image balloon'
   })
-  @IsNotEmpty()
-  face: string;
+  @IsOptional()
+  face?: string;
+  
   @IsOptional()
   @IsString()
   @ApiProperty({example:'golder', description:'gas golder'})
@@ -25,4 +26,30 @@ export class UpdateUserDto {
   @IsPhoneNumber('RU') // или 'ZZ' если без проверки страны
   phone?: string;
 
+  @IsOptional()
+  @IsEmail()
+  @ApiProperty({example:'user@example.com', description:'user email'})
+  email?: string;
+
+  @IsOptional()
+  @IsString()
+  @ApiProperty({example:'password123', description:'user password'})
+  password?: string;
+}
+
+export class SearchUsersDto {
+  @IsOptional()
+  @IsString()
+  @ApiProperty({example:'John', description:'search by name', required: false})
+  name?: string;
+
+  @IsOptional()
+  @IsString()
+  @ApiProperty({example:'0', description:'page number', required: false})
+  page?: string;
+
+  @IsOptional()
+  @IsString()
+  @ApiProperty({example:'10', description:'items per page', required: false})
+  limit?: string;
 }
