@@ -2,17 +2,12 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp">
 
-    <EditText
-        android:id="@+id/etLogin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        android:hint="Логин"
-        android:inputType="text"/>
+
 
     <EditText
         android:id="@+id/etEmail"
@@ -20,16 +15,48 @@
         android:layout_height="wrap_content"
         android:hint="Email"
         android:inputType="textEmailAddress"
-        app:layout_constraintTop_toBottomOf="@id/etLogin"
-        android:layout_marginTop="8dp"/>
+        android:layout_marginTop="8dp"
+        tools:ignore="MissingConstraints" />
 
     <EditText
         android:id="@+id/etPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Пароль"
-        android:inputType="textPassword"
+        android:inputType="text"
         app:layout_constraintTop_toBottomOf="@id/etEmail"
+        android:layout_marginTop="8dp"/>
+    <EditText
+        android:id="@+id/etPasswordRepeat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Повторите пароль"
+        android:inputType="text"
+        app:layout_constraintTop_toBottomOf="@id/etPassword"
+        android:layout_marginTop="8dp"/>
+    <EditText
+        android:id="@+id/etName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Имя"
+        android:inputType="text"
+        app:layout_constraintTop_toBottomOf="@id/etPasswordRepeat"
+        android:layout_marginTop="8dp"/>
+    <EditText
+        android:id="@+id/etSurname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Фамилия"
+        android:inputType="text"
+        app:layout_constraintTop_toBottomOf="@id/etName"
+        android:layout_marginTop="8dp"/>
+    <EditText
+        android:id="@+id/etPhone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Номер телефона"
+        android:inputType="textPassword"
+        app:layout_constraintTop_toBottomOf="@id/etSurname"
         android:layout_marginTop="8dp"/>
 
     <Button
@@ -39,7 +66,7 @@
         android:layout_height="wrap_content"
         android:text="Зарегистрироваться"
         android:background="?android:attr/colorBackground"
-        app:layout_constraintTop_toBottomOf="@id/etPassword"
+        app:layout_constraintTop_toBottomOf="@id/etPhone"
         android:layout_marginTop="16dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

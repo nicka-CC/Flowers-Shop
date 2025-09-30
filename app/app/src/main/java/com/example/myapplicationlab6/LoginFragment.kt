@@ -33,18 +33,18 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.btnLogin.setOnClickListener {
-            val login = binding.etLogin.text.toString().trim()
+            val identifier = binding.etLogin.text.toString().trim()
             val password = binding.etPassword.text.toString()
-            if (login.isEmpty() || password.isEmpty()) {
+            if (identifier.isEmpty() || password.isEmpty()) {
                 Toast.makeText(requireContext(), "Введите логин и пароль", Toast.LENGTH_SHORT).show()
             } else {
-                performLogin(login, password)
+                performLogin(identifier, password)
             }
         }
     }
 
-    private fun performLogin(login: String, password: String) {
-        val request = LoginRequest(login, password)
+    private fun performLogin(identifier: String, password: String) {
+        val request = LoginRequest(identifier, password)
 
         api.login(request).enqueue(object : Callback<LoginResponse> {
             override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
@@ -52,13 +52,16 @@ class LoginFragment : Fragment() {
                 if (!isAdded) return
 
                 if (response.isSuccessful) {
-                    val token = response.body()?.token
+                    val token = response.body()?.access_token
                     if (token != null) {
                         prefs.edit().putString("jwt_token", token).apply()
-                        fetchCurrentUser()
+//                        fetchCurrentUser()
+                        Toast.makeText(requireContext(), token, Toast.LENGTH_SHORT).show()
+                        (activity as? MainActivity)?.onLoginSuccess()
                     } else {
                         Toast.makeText(requireContext(), "Пустой токен", Toast.LENGTH_SHORT).show()
                     }
+
                 } else {
                     Toast.makeText(requireContext(), "Ошибка входа: ${response.code()}", Toast.LENGTH_SHORT).show()
                 }

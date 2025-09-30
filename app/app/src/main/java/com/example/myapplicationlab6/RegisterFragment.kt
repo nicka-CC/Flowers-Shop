@@ -31,33 +31,44 @@ class RegisterFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnRegister.setOnClickListener {
-            val login = binding.etLogin.text.toString()
             val password = binding.etPassword.text.toString()
+            val passwordRepeat = binding.etPasswordRepeat.text.toString()
+            val name = binding.etName.text.toString()
+            val surname = binding.etSurname.text.toString()
+            val phone = binding.etPhone.text.toString()
             val email = binding.etEmail.text.toString()
-            performRegistration(login, password, email)
+            if (password != passwordRepeat) {
+                Toast.makeText(requireContext(), "Пароли не совпадают", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            performRegistration(email, password,name,surname, phone)
         }
     }
+//TODO:confirm password
+    private fun performRegistration(email: String, password: String, name: String, surname:String, phone:String) {
 
-    private fun performRegistration(login: String, password: String, email: String) {
-
-        val request = RegisterRequest(login, password, email) // Создаем объект запроса
+        val request = RegisterRequest(email, password,name,surname, phone)
 
         RetrofitClient.createApiService(requireContext()).register(request)
             .enqueue(object : Callback<RegisterResponse> {
+
                 override fun onResponse(
                     call: Call<RegisterResponse>,
                     response: Response<RegisterResponse>
                 ) {
-                    if (response.isSuccessful) {
-                        response.body()?.token?.let { token ->
-                            val sharedPrefs = requireContext().getSharedPreferences(
-                                "auth_prefs",
-                                Context.MODE_PRIVATE
-                            )
-                            sharedPrefs.edit().putString("jwt_token", token).apply()
-                            performGetUser(sharedPrefs)
-                        }
-                    }
+                    Log.d("RegisterResponse", "Code: ${response.code()}, Body: ${response.body()}, Error: ${response.errorBody()?.string()}")
+
+                    Toast.makeText(requireContext(), response.body()?.message, Toast.LENGTH_LONG).show()
+//                    if (response.isSuccessful) {
+//                        response.body()?.message?.let { token ->
+//                            val sharedPrefs = requireContext().getSharedPreferences(
+//                                "auth_prefs",
+//                                Context.MODE_PRIVATE
+//                            )
+//                            sharedPrefs.edit().putString("jwt_token", token).apply()
+//                            performGetUser(sharedPrefs)
+//                        }
+//                    }
                 }
 
                 override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {

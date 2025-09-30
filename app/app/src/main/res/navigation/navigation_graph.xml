@@ -27,6 +27,9 @@
             app:exitAnim="@android:anim/fade_out"
             app:popExitAnim="@android:anim/slide_out_right"
             app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_chatsFragment_to_blankFragment"
+            app:destination="@id/blankFragment" />
     </fragment>
     <fragment
         android:id="@+id/chatFragment"
@@ -40,5 +43,10 @@
         android:id="@+id/contactsFragment"
         android:name="com.example.myapplicationlab6.ContactsFragment"
         android:label="ContactsFragment" />
+    <fragment
+        android:id="@+id/blankFragment"
+        android:name="com.example.myapplicationlab6.BlankFragment"
+        android:label="fragment_blank"
+        tools:layout="@layout/fragment_map" />
 
 </navigation>

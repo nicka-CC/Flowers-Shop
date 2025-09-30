@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import com.example.myapplicationlab6.ApiService
 
 object RetrofitClient {
-    private const val BASE_URL = "https://api.nogamenolife.pro/"
+    private const val BASE_URL = "http://10.0.2.2:7000/"
 
     private fun getToken(context: Context): String? {
         val sharedPrefs = context.getSharedPreferences("auth_prefs", Context.MODE_PRIVATE)

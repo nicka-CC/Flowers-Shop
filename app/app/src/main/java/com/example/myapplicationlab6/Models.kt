@@ -1,7 +1,7 @@
 package com.example.myapplicationlab6
 
 data class LoginResponse(
-    val token: String // JWT-токен, возвращаемый сервером
+    val access_token: String // JWT-токен, возвращаемый сервером
 )
 
 data class UserResponse(
@@ -11,17 +11,33 @@ data class UserResponse(
 )
 
 data class RegisterRequest(
-    val login: String,
+    val email: String,
     val password: String,
-    val name: String
+    val name: String,
+    val surname: String,
+    val phone: String
+)
+
+data class UserRegisterResponse(
+    val id: Int,
+    val permission: Int,
+    val email: String,
+    val name: String,
+    val surname: String,
+    val phone: String,
+    val password: String,
+    val face: String,
+    val date_created: String,
+    val date_updated: String
 )
 
 data class RegisterResponse(
-    val token: String
+    val message: String,
+    val user: UserRegisterResponse
 )
 
 data class LoginRequest(
-    val login: String,
+    val identifier: String,
     val password: String
 )
 

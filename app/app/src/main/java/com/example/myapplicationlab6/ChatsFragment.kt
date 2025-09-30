@@ -32,6 +32,9 @@ class ChatsFragment : Fragment() {
         binding.openChatButton.setOnClickListener {
             navController.navigate(R.id.action_chatsFragment_to_chatFragment)
         }
+        binding.openMapButtom.setOnClickListener {
+            navController.navigate(R.id.action_chatsFragment_to_blankFragment)
+        }
     }
 
     override fun onDestroyView() {
