@@ -36,6 +36,8 @@ class MainActivity : AppCompatActivity() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragment_container_view) as NavHostFragment
         val navController = navHostFragment.navController
 
+
+//Todo: разобраться в работе middleware бан при свайпе назад
         val sharedPrefs = getSharedPreferences("auth_prefs", Context.MODE_PRIVATE)
         val token = sharedPrefs.getString("jwt_token", null)
 

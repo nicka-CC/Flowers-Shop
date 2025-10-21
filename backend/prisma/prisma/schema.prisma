@@ -10,8 +10,8 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  // url      = "postgres://neondb_owner:npg_4p5RYihEZesm@ep-raspy-silence-a10u9qpl-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require"
-  url      = "postgresql://postgres:nikita12345@localhost:5432/flowersShop?schema=public"
+  url      = "postgres://neondb_owner:npg_4p5RYihEZesm@ep-raspy-silence-a10u9qpl-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require"
+  // url      = "postgresql://postgres:nikita12345@localhost:5432/flowersShop?schema=public"
 }
 
 model Address {
