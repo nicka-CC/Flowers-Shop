@@ -71,18 +71,21 @@ export class ProductsCommentController {
     }
 
 
-    @Get()
+    @Get(":shopId/:productId")
     @ApiOperation({ summary: "get product" })
     async filter(
         @Req() req: Request,
-        @Param("/shopId") shopId: string,
+        @Param("shopId") shopId: string,
+        @Param("productId") productId: string,
         @Query('page') page: string = '1',
         @Query('limit') limit: string = '10',
     ) {
         const pageNumber = parseInt(page, 10);
         const pageSize = parseInt(limit, 10);
+        const shopIdT = parseInt(shopId, 10);
+        const productIdT = parseInt(productId, 10); // Предполагаем, что shopId - это числовой productId
         const user = (req as any).user;
-        const result = await this.gasBallonsService.get( pageNumber,shopId,user, pageSize);
+        const result = await this.gasBallonsService.get(pageNumber, productIdT,shopIdT, pageSize);
 
         return {
             total: result.total,
