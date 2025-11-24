@@ -32,6 +32,21 @@
             app:destination="@id/blankFragment" />
     </fragment>
     <fragment
+        android:id="@+id/productsFragment"
+        android:name="com.example.myapplicationlab6.ProductsFragment"
+        android:label="Продукты"
+        tools:layout="@layout/fragment_products">
+        <action
+            android:id="@+id/action_productsFragment_to_productDetailFragment"
+            app:destination="@id/productDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/productDetailFragment"
+        android:name="com.example.myapplicationlab6.ProductDetailFragment"
+        android:label="ProductDetail"
+        tools:layout="@layout/fragment_product_detail" />
+    <fragment
         android:id="@+id/chatFragment"
         android:name="com.example.myapplicationlab6.ChatFragment"
         android:label="ChatFragment" />
@@ -48,5 +63,23 @@
         android:name="com.example.myapplicationlab6.BlankFragment"
         android:label="fragment_blank"
         tools:layout="@layout/fragment_map" />
+
+    <fragment
+        android:id="@+id/cartFragment"
+        android:name="com.example.myapplicationlab6.CartFragment"
+        android:label="Корзина"
+        tools:layout="@layout/fragment_cart" />
+
+    <fragment
+        android:id="@+id/ordersFragment"
+        android:name="com.example.myapplicationlab6.OrdersFragment"
+        android:label="Заказы"
+        tools:layout="@layout/fragment_orders" />
+
+    <fragment
+        android:id="@+id/userInfoFragment"
+        android:name="com.example.myapplicationlab6.UserInfoFragment"
+        android:label="Профиль"
+        tools:layout="@layout/fragment_user_info" />
 
 </navigation>

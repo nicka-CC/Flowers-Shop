@@ -5,16 +5,32 @@
         android:title="Чаты"
         android:icon="@drawable/chats"/>
     <item
-        android:id="@+id/settingsFragment"
-        android:title="Настройки"
-        android:icon="@drawable/settings"/>
+        android:id="@+id/productsFragment"
+        android:title="Продукты"
+        android:icon="@drawable/chats"/>
+<!--    <item-->
+<!--        android:id="@+id/settingsFragment"-->
+<!--        android:title="Настройки"-->
+<!--        android:icon="@drawable/settings"/>-->
+<!--    <item-->
+<!--        android:id="@+id/contactsFragment"-->
+<!--        android:title="Контакты"-->
+<!--        android:icon="@drawable/contacts"/>-->
     <item
-        android:id="@+id/contactsFragment"
-        android:title="Контакты"
+        android:id="@+id/cartFragment"
+        android:title="Корзина"
         android:icon="@drawable/contacts"/>
     <item
-        android:id="@+id/blankFragment"
-        android:title="map"
+        android:id="@+id/ordersFragment"
+        android:title="Заказы"
         android:icon="@drawable/contacts"/>
+    <item
+        android:id="@+id/userInfoFragment"
+        android:title="Профиль"
+        android:icon="@drawable/contacts"/>
+<!--    <item-->
+<!--        android:id="@+id/blankFragment"-->
+<!--        android:title="map"-->
+<!--        android:icon="@drawable/contacts"/>-->
 
 </menu>

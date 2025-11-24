@@ -53,3 +53,85 @@ data class ContactRequest(
 data class AcceptDeclineRequest(
     val requestId: String
 )
+
+// ===== Product / comments / cart / orders models =====
+data class Product(
+    val id: Int,
+    val name: String?,
+    val image: String?,
+    val amount: Double?,
+    val categoryId: Int?
+)
+
+data class ProductsResponse(
+    val total: Int,
+    val page: Int,
+    val limit: Int,
+    val data: List<Product>
+)
+
+data class Comment(
+    val id: Int,
+    val name: String?,
+    val description: String?,
+    val about: String?,
+    val image: String?,
+    val productId: Int?,
+    val userId: Int?,
+    val date_created: String?
+)
+
+data class CommentsResponse(
+    val total: Int,
+    val page: Int,
+    val limit: Int,
+    val data: List<Comment>
+)
+
+data class CartItem(
+    val id: Int?,
+    val product: Product?,
+    val quantity: Int?
+)
+
+data class CartResponse(
+    val id: Int?,
+    val items: List<CartItem>?,
+    val totalItems: Int?,
+    val totalPrice: Double?
+)
+
+data class AddToCartRequest(
+    val productId: Int,
+    val quantity: Int
+)
+
+data class UpdateCartItemRequest(
+    val quantity: Int
+)
+
+data class CreateOrderRequest(
+    val address: String,
+    val date_delivery: String,
+    val total_service: String,
+    val items: List<CartItemRequest>
+)
+
+data class CartItemRequest(
+    val productId: Int,
+    val quantity: Int
+)
+
+data class Order(
+    val id: Int?,
+    val status: String?,
+    val date: String?,
+    val total_service: String?
+)
+
+data class OrdersResponse(
+    val total: Int,
+    val page: Int,
+    val limit: Int,
+    val data: List<Order>
+)
